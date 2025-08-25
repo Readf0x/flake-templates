@@ -50,7 +50,7 @@ rec {
               default = packages.${projectName};
               init-script = pkgs.writeShellScriptBin "init-proj" ''
                 git init
-                dune init proj ${projectName}
+                dune init proj ${projectName} .
                 echo "version = `ocamlformat --version`" > .ocamlformat
               '';
             };
