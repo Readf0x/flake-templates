@@ -52,6 +52,7 @@ rec {
               init-script = pkgs.writeShellScriptBin "init-proj" ''
                 git init
                 go mod init ${moduleName}
+                git add -A
               '';
             };
           }
