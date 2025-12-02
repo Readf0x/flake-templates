@@ -41,7 +41,7 @@ rec {
               };
             };
             default = packages.${projectName};
-            init-script = pkgs.writeShellScriptBin "init-proj" ''
+            init-proj = pkgs.writeShellScriptBin "init-proj" ''
               git init
               git add -A
             '';
