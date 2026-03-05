@@ -13,14 +13,11 @@ rec {
         ...
       }: let
         info = {
-          projectName = null; # Don't forget to change this!
-          # You can set the module name as well
-          # moduleName = "github.com/example/${projectName}";
+          projectName = null;
         };
       in
         ({
           projectName,
-          moduleName ? projectName,
         }: rec {
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
