@@ -21,7 +21,7 @@ rec {
             odin
             gnumake
             packages.init-proj
-          ] // dependencies;
+          ] ++ dependencies;
         };
         packages = {
           ${projectName} = pkgs.stdenv.mkDerivation rec {
