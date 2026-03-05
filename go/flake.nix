@@ -29,7 +29,7 @@ rec {
               packages = with pkgs; [
                 go
                 delve
-                packages.init-script
+                packages.init-proj
               ];
             };
             packages = {
@@ -49,7 +49,7 @@ rec {
                 };
               };
               default = packages.${projectName};
-              init-script = pkgs.writeShellScriptBin "init-proj" ''
+              init-proj = pkgs.writeShellScriptBin "init-proj" ''
                 git init
                 go mod init ${moduleName}
                 git add -A
