@@ -10,6 +10,7 @@
         go = "Golang template";
         go-qt = "miQT template";
         ocaml = "OCaml template (nix managed)";
+        odin = "Odin template";
       };
     defaultTemplate = self.templates.generic;
   };
