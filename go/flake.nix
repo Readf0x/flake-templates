@@ -14,7 +14,7 @@ rec {
         pkgs,
         ...
       }: let
-        info = {
+        info = rec {
           projectName = null; # Don't forget to change this!
           # You can set the module name as well
           # moduleName = "github.com/example/${projectName}";
@@ -33,14 +33,13 @@ rec {
               ];
             };
             packages = {
-              ${projectName} = pkgs.buildGoModule rec {
-                name = projectName;
-                pname = name;
+              ${projectName} = pkgs.buildGoModule {
+                pname = projectName;
                 version = "0.1";
 
                 src = ./.;
 
-                vendorHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+                vendorHash = null;
 
                 meta = {
                   inherit description;
