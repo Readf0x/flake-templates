@@ -14,6 +14,7 @@ rec {
         projectName,
         dependencies ? [],
         sourceDir ? ".",
+        version ? "0.1",
         binaryName ? projectName
       }: rec {
         devShells.default = pkgs.mkShell {
@@ -26,10 +27,15 @@ rec {
         packages = {
           ${projectName} = pkgs.stdenv.mkDerivation rec {
             pname = projectName;
-            version = "0.1";
+            inherit version;
             src = ./.;
-            nativeBuildInputs = [];
+
+            nativeBuildInputs = with pkgs; [ odin ] ++ dependencies;
             buildInputs = [];
+
+            DESTDIR = placeholder "out";
+            PREFIX = "";
+
             meta = {
               inherit description;
               homepage = "";
@@ -39,21 +45,23 @@ rec {
           default = packages.${projectName};
           init-proj = pkgs.writeShellScriptBin "init-proj" ''
             git init
-            git add -A
-            cat > makefile <<EOF
+            mkdir ${sourceDir} -p
+            touch ${sourceDir}/main.odin
+            cat <<EOF > makefile
             PREFIX ?= /usr/local
-            BINDIR ?= $(PREFIX)/bin
-            MANDIR ?= $(PREFIX)/share/man
+            BINDIR ?= \$(PREFIX)/bin
+            MANDIR ?= \$(PREFIX)/share/man
 
             build:
-              odin build ${sourceDir} -out:${binaryName}
+            	odin build ${sourceDir} -out:${binaryName}
             
             debug:
-              odin build ${sourceDir} -debug -out:${binaryName}
+            	odin build ${sourceDir} -debug -out:${binaryName}
 
             install: build
-              install -Dm755 ${binaryName} "$(DESTDIR)$(BINDIR)/${binaryName}"
+            	install -Dm755 ${binaryName} "\$(DESTDIR)\$(BINDIR)/${binaryName}"
             EOF
+            git add -A
           '';
         };
       }) info;
