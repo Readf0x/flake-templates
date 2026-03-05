@@ -22,7 +22,11 @@ rec {
           projectName,
           moduleName ? projectName,
         }: rec {
-          devShells.default = pkgs.mkShell {packages = with pkgs; [];};
+          devShells.default = pkgs.mkShell {
+            packages = with pkgs; [
+              packages.init-proj
+            ];
+          };
           packages = {
             ${projectName} = pkgs.stdenv.mkDerivation rec {
               name = projectName;
@@ -39,6 +43,10 @@ rec {
               };
             };
             default = packages.${projectName};
+            init-script = pkgs.writeShellScriptBin "init-proj" ''
+              git init
+              git add -A
+            '';
           };
         })
         info;

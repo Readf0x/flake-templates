@@ -55,6 +55,7 @@ rec {
                 git init
                 go mod init ${moduleName}
                 go get github.com/mappu/miqt
+                git add -A
               '';
             };
           }

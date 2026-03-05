@@ -52,6 +52,7 @@ rec {
                 git init
                 dune init proj ${projectName} .
                 echo "version = `ocamlformat --version`" > .ocamlformat
+                git add -A
               '';
             };
           }
