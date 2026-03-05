@@ -24,6 +24,11 @@
         description = "Node.js template";
       };
 
+      ocaml = {
+        path = ./ocaml;
+        description = "OCaml template (nix managed)";
+      };
+
     };
 
     defaultTemplate = self.templates.generic;
