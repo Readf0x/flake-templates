@@ -14,6 +14,16 @@
         description = "Golang template";
       };
 
+      go-qt = {
+        path = ./go-qt;
+        description = "miQT template";
+      };
+
+      node = {
+        path = ./node;
+        description = "Node.js template";
+      };
+
     };
 
     defaultTemplate = self.templates.generic;
